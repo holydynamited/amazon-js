@@ -1,4 +1,4 @@
-import { cart,removeFromCart,updateDeliveryOption } from "../../data/cart.js"; 
+import { cart,removeFromCart,updateDeliveryOption, cartQuantity } from "../../data/cart.js"; 
 import { products, getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 
@@ -13,7 +13,7 @@ export function renderOrderSummary() {
   
 
 
-
+const cartItems = cartQuantity();
 let cartSummaryHTML = '';
 
 cart.forEach((cartItem) => {
@@ -37,8 +37,12 @@ cart.forEach((cartItem) => {
     'dddd, MMMM D'
   );
 
+  
+
   cartSummaryHTML +=
     `
+   
+    
   <div class="cart-item-container
   js-cart-item-container-${matchingProduct.id}">
             <div class="delivery-date">
@@ -146,7 +150,8 @@ document.querySelectorAll('.js-delete-link')
 
       container.remove();
 
-      renderPaymentSummary();
+      renderOrderSummary();
+       renderPaymentSummary();
       
     });
   });
@@ -160,5 +165,10 @@ document.querySelectorAll('.js-delete-link')
        renderPaymentSummary();
       });
     });
+  
+  
+  document.querySelector('.js-items').innerHTML
+    = cartItems;
+  
 }
   
