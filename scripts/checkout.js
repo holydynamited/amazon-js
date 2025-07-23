@@ -5,10 +5,17 @@ import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 
 import { deliveryOptions } from "../data/deliveryoptions.js";
 
+console.log(deliveryOptions); 
+
 const today = dayjs();
 
 const deliveryDate = today.add(7, 'days');
 console.log(deliveryDate.format('dddd, MMMM D'));
+
+function renderOrderSummary() {
+  
+
+
 
 let cartSummaryHTML = '';
 
@@ -29,7 +36,7 @@ cart.forEach((cartItem) => {
    let deliveryOption;
     
     deliveryOptions.forEach((option) => {
-      if (option.id === deliveryOptionId) {
+      if (option.id === (deliveryOptionId)) {
         deliveryOption = option;
       }
     })
@@ -112,7 +119,7 @@ function deliveryOptionsHTML(matchingProduct,cartItem) {
     `
     <div class="delivery-option js-delivery-option"
     data-product-id ="${matchingProduct.id}"
-    data-delivery-option-id="${deliveryOption.id}>
+    data-delivery-option-id="${deliveryOption.id}">
       <input type="radio"
       ${isChecked?'checked':''}
 
@@ -152,11 +159,15 @@ document.querySelectorAll('.js-delete-link')
     });
   });
 
-document.querySelectorAll('.js-delivery-option')
-  .forEach((element) => {
-    element.addEventListener('click', () => {
-      const { productId, deliveryOptionId } = element.dataset;
-      updateDeliveryOption(productId, deliveryOptionId);
+  document.querySelectorAll('.js-delivery-option')
+    .forEach((element) => {
+      element.addEventListener('click', () => {
+        const { productId, deliveryOptionId } = element.dataset;
+        updateDeliveryOption(productId, deliveryOptionId);
+        renderOrderSummary();
       
-    }) 
-  })
+      });
+    });
+}
+  
+ renderOrderSummary();
