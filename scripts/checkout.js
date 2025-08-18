@@ -8,10 +8,9 @@ import { loadCart } from "../data/cart.js";
 import '../data/backend-practice.js'
 
 
-async function loadPage(){
-  console.log('load page');
-
-  await loadProductsFetch();
+async function loadPage() {
+  try {
+    await loadProductsFetch();
 
   await new Promise((resolve) => {
  
@@ -19,6 +18,14 @@ async function loadPage(){
       resolve();
     });
   });
+    
+  } catch (error) {
+    console.log('error')
+  }
+  
+ 
+
+  
 
   renderOrderSummary();
   renderPaymentSummary();
